@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
-  private baseUrl = 'https://md-new.dev.ho.masrpay.com.eg/api/Capatcha/Generate'; // 🌐 Replace with your backend base URL
+  private baseUrl = 'https://md-new.dev.ho.masrpay.com.eg/api'; // 🌐 Replace with your backend base URL
 
   constructor(private http: HttpClient) {}
 
@@ -12,12 +14,27 @@ export class PostService {
     return this.http.post(`${this.baseUrl}/Capatcha/Generate`, {});
   }
 
-  // If there's a verify endpoint like `/Capatcha/Verify`, define it here:
-  verifyCaptcha(data: {
-    captcha_input: string;
-    captcha_key: string;
+  login(payload: {
+    user_name: string;
+    password: string;
+    captcha_code: string | number;
     captcha_secret: string;
+    captcha_key: string;
   }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/Capatcha/Verify`, data);
+    const headers = new HttpHeaders({
+      'x-api-key': 'test',
+      'x-api-secret': 'test_secret'
+    });
+    return this.http.post(`${this.baseUrl}/admin/auth/login`, payload, { headers });
   }
+  
+
+  // If there's a verify endpoint like `/Capatcha/Verify`, define it here:
+  // verifyCaptcha(data: {
+  //   captcha_input: string;
+  //   captcha_key: string;
+  //   captcha_secret: string;
+  // }): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/Capatcha/Verify`, data);
+  // }
 }

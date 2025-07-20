@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   captchaImage: string = '';
   captchaKey: string = '';
   captchaSecret: string = '';
+  showPassword: boolean = false;
 
   @ViewChild('captchaCanvas', { static: true }) captchaCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -36,6 +37,10 @@ export class LoginComponent implements OnInit {
     this.loadCaptcha();
   }
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   loadCaptcha() {
     this.postService.generateCaptcha().subscribe({
       next: (res) => {
@@ -54,15 +59,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Example usage of NgZone for non-Angular async code (not active):
-  // someNonAngularCallback(data: any) {
-  //   this.zone.run(() => {
-  //     this.captchaImage = data.captcha_image;
-  //     this.cdr.detectChanges();
-  //   });
-  // }
-
-  // ...existing code...
+  
 
   onSubmit() {
     if (this.loginForm.invalid) {

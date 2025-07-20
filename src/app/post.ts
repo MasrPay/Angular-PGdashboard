@@ -26,7 +26,7 @@ export class PostService {
     });
     return this.http.post(`${this.baseUrl}/admin/auth/login`, payload, { headers });
   }
-  
+
 
   // If there's a verify endpoint like `/Capatcha/Verify`, define it here:
   // verifyCaptcha(data: {

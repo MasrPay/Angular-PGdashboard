@@ -41,7 +41,11 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         console.log('Full captcha response:', res);
         this.captchaImage = res.data.captcha_image;
+        this.captchaKey = res.data.captcha_key;
+        this.captchaSecret = res.data.captcha_secret;
         console.log('captchaImage:', this.captchaImage);
+        console.log('captchaKey:', this.captchaKey);
+        console.log('captchaSecret:', this.captchaSecret);
         this.cdr.detectChanges(); // Force Angular to check for updates
       },
       error: (err) => {
@@ -69,10 +73,12 @@ export class LoginComponent implements OnInit {
     const payload = {
       user_name: this.loginForm.value.username,
       password: this.loginForm.value.password,
-      captcha_code: this.loginForm.value.captcha,
+      captcha_code: parseInt(this.loginForm.value.captcha), // Convert to number like Postman
       captcha_secret: this.captchaSecret,
       captcha_key: this.captchaKey
     };
+
+    console.log('Login payload:', payload); // Debug log
 
     this.postService.login(payload).subscribe({
       next: (res) => {
@@ -86,6 +92,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (err) => {
+        console.error('Login error:', err); // Debug log
         alert('Server error during login');
         this.loadCaptcha();
       }

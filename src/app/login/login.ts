@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PostService } from '../post'; // adjust path if needed
-
+import { PostService } from '../post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private postService: PostService,
     private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
-    private zone: NgZone // Inject NgZone
+    private zone: NgZone, // Inject NgZone
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -59,8 +60,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  
-
   onSubmit() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -81,8 +80,7 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         if (res.status === 200 && res.data?.access_token) {
           sessionStorage.setItem('access_token', res.data.access_token);
-          // TODO: Redirect to dashboard or another page after login
-          alert('Login successful!');
+          this.router.navigate(['/merchants']);
         } else {
           alert('Login failed: ' + (res.message || 'Unknown error'));
           this.loadCaptcha();

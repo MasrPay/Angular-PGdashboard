@@ -1,126 +1,117 @@
-<div class="flex flex-col min-h-screen bg-gray-100 font-sans">
+
+<div class=" container d-flex flex-column min-vh-100 bg-light font-sans">
   <!-- Main Content (flex row for panels) -->
-  <div class="flex flex-1">
+  <div class="row d-flex flex-grow-1">
     <!-- Left Panel with diagonal shapes -->
-    <div class="hidden md:flex w-1/2 relative bg-white overflow-hidden justify-start items-start px-8 pt-6">
+    <div class="d-none d-md-flex col-md-6 position-relative bg-white overflow-hidden justify-content-start align-items-start px-4 pt-4">
       <!-- Gray Triangle - TOP LEFT -->
-      <div class="absolute top-0 left-0 w-full h-full bg-gray-100 z-0"
-           style="clip-path: polygon(0% 0%, 80% 0%, 0% 80%);">
-      </div>
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-light" style="clip-path: polygon(0% 0%, 80% 0%, 0% 80%); z-index: 0;"></div>
       <!-- Light Red Triangle - BOTTOM LEFT -->
-      <div class="absolute bottom-0 left-0 w-full h-full bg-[#ffe6e6] z-0"
-           style="clip-path: polygon(0% 40%, 0% 100%, 90% 100%);">
-      </div>
+      <div class="position-absolute bottom-0 start-0 w-100 h-100" style="background-color: #ffe6e6; clip-path: polygon(0% 40%, 0% 100%, 90% 100%); z-index: 0;"></div>
       <!-- Logo -->
-      <img src="image.png" alt="MasrPay Logo" class="relative mb-6 z-10 w-40" />
-      <!-- <img src="image.png" alt="Logo" class="mb-6 w-40" /> -->
+      <img src="image.png" alt="MasrPay Logo" class="position-relative mb-4 z-1" style="width: 10rem;" />
       <!-- Welcome text (centered lower) -->
-      <div class="relative z-20 text-center mt-52 max-w-md">
-        <h1 class="text-2xl md:text-3xl font-semibold text-custom-black mb-4">
-          Welcome to your payment operation dashboard.
+      <div class="position-relative z-2 text-center mt-5 mx-auto" style="max-width: 28rem;">
+        <h1 class="h3 fw-semibold text-dark mb-3">
+          Welcome to the MasrPay operations dashboard.
         </h1>
-        <h2 class="text-lg md:text-xl text-gray-700 leading-relaxed">
-          Easily track your transactions and manage your payouts—all in one place.<br />
-          Built for simplicity, ready to grow with your business.
+        <h2 class="h5 text-secondary lh-base">
+          Monitor system performance, manage merchant activity, and keep everything running smoothly.<br />
+          Designed for precision, built to support mission-critical decisions..
         </h2>
       </div>
     </div>
 
     <!-- Right Panel (Login Form) -->
-    <div class="w-full md:w-1/2 flex items-center justify-center bg-white px-4 py-12">
-      <div class="w-full max-w-md bg-white border border-gray-300 rounded-md shadow-md p-8">
-        <h2 class="text-2xl font-semibold text-center text-custom-black mb-6">Sign in</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
-          <!-- Email Field -->
-          <!-- Username -->
-<div>
-  <label class="block text-sm font-medium text-gray-600 mb-1">Username</label>
-  <input
-    type="text"
-    formControlName="username"
-    placeholder="Enter your username"
-    class="w-full px-4 py-2 rounded border border-gray-300 bg-custom-light-gray placeholder-gray-400 text-custom-black"
-  />
-  <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid" class="text-sm text-red-500">
-    Username is required.
-  </div>
-</div>
-
-          <!-- Password Field -->
-        <!-- Password -->
-<div>
-  <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
-  <div class="relative">
-    <input
-      [type]="showPassword ? 'text' : 'password'"
-      formControlName="password"
-      placeholder="Enter password"
-      class="w-full px-4 py-2 pr-10 rounded border border-gray-300 bg-custom-light-gray placeholder-gray-400 text-custom-black"
-    />
-    <button
-      type="button"
-      (click)="togglePasswordVisibility()"
-      class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-    >
-      <svg *ngIf="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-      </svg>
-      <svg *ngIf="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
-      </svg>
-    </button>
-  </div>
-  <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-sm text-red-500">
-    Password is required.
-  </div>
-</div>
-
-          <div class="text-right text-sm">
-            <a href="#" class="text-custom-black hover:underline">Forgot password?</a>
-          </div>
-          <!-- CAPTCHA Section -->
-          <div>
-            <label class="block text-sm font-medium text-gray-600 mb-1">CAPTCHA</label>
-            <div class="flex flex-col items-start space-y-2">
-            
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center bg-white px-3 py-5">
+      <div class="w-100" style="max-width: 28rem;">
+        <div class="bg-white border border-secondary rounded shadow-sm p-4">
+          <h2 class="h4 fw-semibold text-center text-dark mb-4">Sign in</h2>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- Username -->
+            <div class="mb-3">
+              <label class="form-label text-secondary">Username</label>
+              <input
+                type="text"
+                formControlName="username"
+                placeholder="Enter your username"
+                class="form-control"
+              />
+              <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid" class="form-text text-danger">
+                Username is required.
+              </div>
             </div>
-           <img [src]="captchaImage" *ngIf="captchaImage">
-        <button type="button" (click)="loadCaptcha()">↻ Reload CAPTCHA</button>
-            <input
-              type="text"
-              formControlName="captcha"
-              placeholder="Enter captcha code"
-              class="mt-2 w-full px-4 py-2 rounded border border-gray-300 bg-custom-light-gray placeholder-gray-400 text-custom-black"
-            />
-            <div *ngIf="loginForm.get('captcha')?.touched && loginForm.get('captcha')?.invalid" class="text-sm text-red-500">
-              CAPTCHA is required.
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label text-secondary">Password</label>
+              <div class="position-relative">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  formControlName="password"
+                  placeholder="Enter password"
+                  class="form-control pe-5"
+                />
+                <button
+                  type="button"
+                  (click)="togglePasswordVisibility()"
+                  class="btn btn-link position-absolute end-0 top-50 translate-middle-y p-0"
+                  tabindex="-1"
+                  style="color: #6c757d;"
+                >
+                  <svg *ngIf="!showPassword" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                  <svg *ngIf="showPassword" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                  </svg>
+                </button>
+              </div>
+              <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="form-text text-danger">
+                Password is required.
+              </div>
             </div>
-          </div>
 
-          <!-- Forgot password only -->
+            <div class="text-end mb-3">
+              <a href="#" class="text-dark text-decoration-underline">Forgot password?</a>
+            </div>
 
-          <!-- Submit Button -->
-          <button
-  type="submit"
-  [disabled]="loginForm.invalid"
-  class="w-full py-2 mt-2 rounded text-white font-semibold shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed"
-  style="background-color: rgb(204, 23, 30);"
->
-  Sign in
-</button>
+            <!-- CAPTCHA Section -->
+            <div class="mb-3">
+              <label class="form-label text-secondary">CAPTCHA</label>
+              <div class="d-flex flex-column align-items-start mb-2"></div>
+              <img [src]="captchaImage" *ngIf="captchaImage" class="mb-2" />
+              <button type="button" (click)="loadCaptcha()" class="btn btn-outline-secondary btn-sm mb-2">↻ Reload CAPTCHA</button>
+              <input
+                type="text"
+                formControlName="captcha"
+                placeholder="Enter captcha code"
+                class="form-control"
+              />
+              <div *ngIf="loginForm.get('captcha')?.touched && loginForm.get('captcha')?.invalid" class="form-text text-danger">
+                CAPTCHA is required.
+              </div>
+            </div>
 
-        </form>
+            <button
+              type="submit"
+              [disabled]="loginForm.invalid"
+              class="btn w-100 mt-2 text-white fw-semibold shadow-sm"
+              style="background-color: rgb(204, 23, 30);"
+            >
+              Sign in
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-    <!-- Footer -->
-  <div class="mt-8 text-center text-sm text-gray-500 space-x-4 mb-4 bg-white py-4 rounded shadow"
-       style="background-color: #ffe6e6;">
-    <a href="#" class="hover:underline">Terms & conditions</a>
-    <a href="#" class="hover:underline">Support</a>
+  <div class="mt-4 text-center small text-secondary bg-white py-3 rounded shadow" style="background-color: #ffe6e6;">
+    <a href="#" class="text-decoration-underline me-3">Terms & conditions</a>
+    <a href="#" class="text-decoration-underline">Support</a>
     <div class="mt-2">©️ 2025 MasrPay. All rights reserved.</div>
   </div>
 </div>

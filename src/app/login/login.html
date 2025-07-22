@@ -1,29 +1,36 @@
-
-<div class=" container d-flex flex-column min-vh-100 bg-light font-sans">
+<section>
+  <div class=" container d-flex flex-column min-vh-100 bg-light font-sans">
   <!-- Main Content (flex row for panels) -->
   <div class="row d-flex flex-grow-1">
     <!-- Left Panel with diagonal shapes -->
     <div class="d-none d-md-flex col-md-6 position-relative bg-white overflow-hidden justify-content-start align-items-start px-4 pt-4">
       <!-- Gray Triangle - TOP LEFT -->
-      <div class="position-absolute top-0 start-0 w-100 h-100 bg-light" style="clip-path: polygon(0% 0%, 80% 0%, 0% 80%); z-index: 0;"></div>
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-light" style="background-color: #F4F4F4FF !important; clip-path: polygon(0% 0%, 80% 0%, 0% 80%); z-index: 0;"></div>
       <!-- Light Red Triangle - BOTTOM LEFT -->
-      <div class="position-absolute bottom-0 start-0 w-100 h-100" style="background-color: #ffe6e6; clip-path: polygon(0% 40%, 0% 100%, 90% 100%); z-index: 0;"></div>
-      <!-- Logo -->
+      <div class="position-absolute bottom-0 start-0 w-100 h-100" style="background-color: #C2171738; clip-path: polygon(0% 40%, 0% 100%, 90% 100%); z-index: 0;"></div>
+        <!-- Logo -->
       <img src="image.png" alt="MasrPay Logo" class="position-relative mb-4 z-1" style="width: 10rem;" />
-      <!-- Welcome text (centered lower) -->
-      <div class="position-relative z-2 text-center mt-5 mx-auto" style="max-width: 28rem;">
-        <h1 class="h3 fw-semibold text-dark mb-3">
-          Welcome to the MasrPay operations dashboard.
-        </h1>
-        <h2 class="h5 text-secondary lh-base">
-          Monitor system performance, manage merchant activity, and keep everything running smoothly.<br />
-          Designed for precision, built to support mission-critical decisions..
-        </h2>
+   
+      <div class="col-lg-8 my-auto">
+        <!-- Welcome text (centered lower) -->
+      <div class="position-relative z-2 mt-5 mx-auto text-center" >
+      <h3 class="fw-bold text-dark mb-3">
+            Welcome to the MasrPay 
+            <span style="font-size: 20px;">operations dashboard.</span>
+          </h3>
+          <p class="text-secondary lh-base">
+            Monitor system performance, manage merchant activity, and keep everything running smoothly.<br />
+            Designed for precision, built to support mission-critical decisions..
+          </p>
+      </div>
+    
+      
+      
       </div>
     </div>
 
     <!-- Right Panel (Login Form) -->
-    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center bg-white px-3 py-5">
+    <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center bg-white px-3 py-5">
       <div class="w-100" style="max-width: 28rem;">
         <div class="bg-white border border-secondary rounded shadow-sm p-4">
           <h2 class="h4 fw-semibold text-center text-dark mb-4">Sign in</h2>
@@ -31,7 +38,7 @@
             <!-- Username -->
             <div class="mb-3">
               <label class="form-label text-secondary">Username</label>
-              <input
+              <input style="font-size: small;"
                 type="text"
                 formControlName="username"
                 placeholder="Enter your username"
@@ -47,6 +54,7 @@
               <label class="form-label text-secondary">Password</label>
               <div class="position-relative">
                 <input
+                style="font-size: small;"
                   [type]="showPassword ? 'text' : 'password'"
                   formControlName="password"
                   placeholder="Enter password"
@@ -73,22 +81,27 @@
               </div>
             </div>
 
-            <div class="text-end mb-3">
+            <div class="text-end" style="font-size: small;">
               <a href="#" class="text-dark text-decoration-underline">Forgot password?</a>
             </div>
 
             <!-- CAPTCHA Section -->
             <div class="mb-3">
-              <label class="form-label text-secondary">CAPTCHA</label>
-              <div class="d-flex flex-column align-items-start mb-2"></div>
-              <img [src]="captchaImage" *ngIf="captchaImage" class="mb-2" />
-              <button type="button" (click)="loadCaptcha()" class="btn btn-outline-secondary btn-sm mb-2">↻ Reload CAPTCHA</button>
+              <label class="form-label text-secondary pe-2" style="font-size: 15px;">CAPTCHA</label>
+                 <img [src]="captchaImage" *ngIf="captchaImage" width="20%" height="20%" class="mb-2 border border-2" />
               <input
                 type="text"
                 formControlName="captcha"
                 placeholder="Enter captcha code"
                 class="form-control"
               />
+            <div class="text-end mb-3" style="font-size: small;">
+                 <button type="button" (click)="loadCaptcha()" class="btn btn-reload btn-sm my-1" style="font-size: small;">↻ Reload CAPTCHA</button>
+            </div>
+
+             
+              
+          
               <div *ngIf="loginForm.get('captcha')?.touched && loginForm.get('captcha')?.invalid" class="form-text text-danger">
                 CAPTCHA is required.
               </div>
@@ -108,10 +121,17 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="mt-4 text-center small text-secondary bg-white py-3 rounded shadow" style="background-color: #ffe6e6;">
+</div>
+</section>
+  <footer class="container-fluid bg-white">
+    <div class="container">
+      <div class="row">
+     <div class="mt-4 text-center small text-secondary  py-3 rounded shadow" style="background-color: #ffe6e6;">
     <a href="#" class="text-decoration-underline me-3">Terms & conditions</a>
     <a href="#" class="text-decoration-underline">Support</a>
     <div class="mt-2">©️ 2025 MasrPay. All rights reserved.</div>
   </div>
-</div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer -->

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { GetService } from '../get.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-merchant-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './merchant-list.html',
   styleUrls: ['./merchant-list.css']
 })

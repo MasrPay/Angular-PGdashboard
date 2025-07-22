@@ -27,6 +27,17 @@ export class PostService {
     return this.http.post(`${this.baseUrl}/admin/auth/login`, payload, { headers });
   }
 
+  createUser(payload: any, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'x-api-key': 'test',
+      'x-api-secret': 'test_secret',
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post(`${this.baseUrl}/admin/manage-user/create`, payload, { headers });
+  }
+
 
   // If there's a verify endpoint like `/Capatcha/Verify`, define it here:
   // verifyCaptcha(data: {

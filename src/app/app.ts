@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { MerchantListComponent } from './merchant-list/merchant-list';
 import { RouterOutlet } from '@angular/router';
+import { Sidebar } from './sidebar/sidebar';
+import { LayoutService } from './layout.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule, RouterOutlet, Sidebar],
   templateUrl: './app.component.html',
   styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = 'admin_dashboard';
+  constructor(public layoutService: LayoutService) {}
 }
   

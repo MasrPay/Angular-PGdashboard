@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PostService } from '../post';
 import { Router } from '@angular/router';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   captchaImage: string = '';
   captchaKey: string = '';
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
     private postService: PostService,
     private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
     private zone: NgZone, // Inject NgZone
-    private router: Router
+    private router: Router,
+    private layoutService: LayoutService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -35,7 +37,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.layoutService.hideSidebar();
     this.loadCaptcha();
+  }
+
+  ngOnDestroy() {
+    this.layoutService.showSidebarFn();
   }
 
   togglePasswordVisibility() {

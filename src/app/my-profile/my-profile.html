@@ -1,0 +1,31 @@
+<div class="container py-4">
+  <h2>User Profile</h2>
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+  <div *ngIf="profile" class="card shadow-sm p-4" style="max-width: 500px;">
+    <h4>{{ profile.name }}</h4>
+    <div class="text-muted mb-2">{{ profile.role[0] || '' }}</div>
+    <div class="mb-2"><span class="fw-bold">ID:</span> <span class="text-danger">{{ profile.id }}</span></div>
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Work Email</label>
+        <input class="form-control" [value]="profile.email" readonly />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input class="form-control" [value]="profile.phone" readonly />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Department</label>
+        <input class="form-control" value="Sales Dept." readonly />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input class="form-control" [value]="profile.user_name" readonly />
+      </div>
+      <div class="mb-3">
+        <label class="form-label text-danger">Date of creation</label>
+        <input class="form-control" value="10-09-2023" readonly />
+      </div>
+    </form>
+  </div>
+</div>

@@ -18,4 +18,13 @@ export class GetService {
     }
     return this.http.get(url, { headers });
   }
+
+  getProfile(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.get(`${this.baseUrl}/admin/profile`, { headers });
+  }
 } 

@@ -18,6 +18,14 @@ export class MerchantListComponent implements OnInit {
   constructor(private getService: GetService, private router: Router) {}
 
   ngOnInit(): void {
+    const savedStatus = localStorage.getItem('merchantFilterStatus');
+    if (savedStatus) {
+      this.selectedStatus = savedStatus;
+    }
+    const cachedMerchants = localStorage.getItem('merchantListCache');
+    if (cachedMerchants) {
+      this.merchants = JSON.parse(cachedMerchants);
+    }
     this.loadMerchants();
   }
 
@@ -32,6 +40,7 @@ export class MerchantListComponent implements OnInit {
         console.log('API response:', res);
         if (res.status === 200 && res.data) {
           this.merchants = res.data;
+          localStorage.setItem('merchantListCache', JSON.stringify(res.data));
         } else {
           this.merchants = [];
           this.errorMsg = res.message || 'No merchants found.';
@@ -47,6 +56,7 @@ export class MerchantListComponent implements OnInit {
   onStatusFilterChange(event: Event) {
     const select = event.target as HTMLSelectElement;
     this.selectedStatus = select.value;
+    localStorage.setItem('merchantFilterStatus', this.selectedStatus);
     this.loadMerchants();
   }
 }

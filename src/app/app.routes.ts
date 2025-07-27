@@ -6,7 +6,23 @@ import { MyProfileComponent } from './my-profile/my-profile';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'dashboard', component: LoginComponent }, // Using LoginComponent as placeholder for dashboard
+  { path: 'gateway', component: LoginComponent },
+  
+  // Merchants routes
   { path: 'merchants', component: MerchantListComponent },
   { path: 'merchants/create', component: CreateUserComponent },
-  { path: 'profile', component: MyProfileComponent }
+  { path: 'merchants/kyb', component: LoginComponent },
+  { path: 'merchants/mail', component: LoginComponent },
+  
+  { path: 'payments', component: LoginComponent },
+  { path: 'withdrawal', component: LoginComponent },
+  { path: 'users', component: LoginComponent },
+  { path: 'support', component: LoginComponent },
+  { path: 'roles', component: LoginComponent },
+  { path: 'profile', component: MyProfileComponent },
+  { path: 'reports', component: LoginComponent },
+  { path: 'site', component: LoginComponent },
+  { path: 'frontend', component: LoginComponent },
+  { path: 'communication', component: LoginComponent }
 ];

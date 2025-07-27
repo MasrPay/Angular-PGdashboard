@@ -18,19 +18,277 @@
 #sidebar.collapsed h4 {
   display: none;
 }
+
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  background: #ca151c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.sidebar-toggle:hover {
+  background: #a01218;
+  transform: scale(1.1);
+}
+
+.sidebar-toggle i {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Collapsed sidebar styles */
+.sidebar.collapsed {
+  width: 80px !important;
+}
+
+.sidebar.collapsed .nav-link {
+  text-align: center;
+  padding: 10px 5px;
+  justify-content: center;
+}
+
+.sidebar.collapsed .nav-link i {
+  margin-right: 0;
+  font-size: 18px;
+}
+
+.sidebar.collapsed .dropdown-toggle {
+  justify-content: center !important;
+}
+
+.sidebar.collapsed .dropdown-toggle i:last-child {
+  display: none;
+}
+
+.sidebar.collapsed .dropdown-menu {
+  display: none !important;
+}
+
 nav i {
   margin-right: 4px;
   color: black;
 }
-.active {
-border-left: solid 4px #ca151c;
+
+/* Dropdown toggle styling */
+.dropdown-toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.dropdown-toggle i:last-child {
+  margin-left: auto;
+  margin-right: 0;
+  transition: transform 0.3s ease;
+}
+
+/* Submenu styling */
+.submenu-container {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: transparent;
+}
+
+.submenu-container.show {
+  max-height: 200px;
+  padding-left: 20px;
+}
+
+.submenu {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.submenu-item {
+  margin: 5px 0;
+}
+
+.submenu-link {
+  display: block;
+  padding: 8px 15px;
+  color: #666;
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.submenu-link:hover {
+  background-color: rgba(202, 21, 28, 0.1);
+  color: #ca151c;
+}
+
+/* Active state styling for parent categories only */
+.nav-item.active {
+  border-left: solid 4px #ca151c;
+  background-color: rgba(202, 21, 28, 0.1);
+}
+
+.nav-item.active .nav-link {
+  color: #ca151c !important;
+  font-weight: 600;
+}
+
+.nav-item.active .nav-link i {
+  color: #ca151c !important;
+}
+
+/* Active state styling for child categories only - completely separate */
+.submenu-item.active .submenu-link {
+  background-color: rgba(202, 21, 28, 0.15) !important;
+  color: #ca151c !important;
+  font-weight: 600 !important;
+  border-left: 3px solid #ca151c !important;
+}
+
+/* Hover effects */
+.nav-item:hover {
+  background-color: rgba(202, 21, 28, 0.05);
+  border-left: solid 2px #ca151c;
+}
+
+.nav-item:hover .nav-link {
+  color: #ca151c !important;
+}
+
+.nav-item:hover .nav-link i {
+  color: #ca151c !important;
+}
+
 nav a {
   color: black;
   text-decoration: none;
   font-size: 14px;
+  transition: all 0.3s ease;
 } 
-nav ul
-{
+
+nav ul {
   list-style: none;
+}
+
+/* Hide text when collapsed */
+.d-none {
+  display: none !important;
+}
+
+/* Ensure active state works in collapsed mode */
+.sidebar.collapsed .nav-item.active {
+  border-left: solid 4px #ca151c;
+  background-color: rgba(202, 21, 28, 0.1);
+}
+
+/* Collapsed mode submenu handling */
+.sidebar.collapsed .submenu {
+  display: none !important;
+}
+
+.sidebar.collapsed .dropdown-toggle i:last-child {
+  display: none;
+}
+
+/* Sidebar scrolling functionality */
+.sidebar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  padding-right: 0; /* Remove extra padding */
+  position: relative; /* Ensure proper positioning context */
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure navigation container has proper height and spacing */
+#navbarNav {
+  padding-bottom: 20px;
+  margin-right: 0;
+  width: 100%;
+}
+
+/* Fixed logo section */
+.sidebar .p-0 {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding: 10px 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+/* Ensure all nav items are fully visible */
+.nav-item {
+  margin-right: 0;
+  width: 100%;
+}
+
+.nav-link {
+  width: 100%;
+  padding-right: 15px;
+}
+
+/* Ensure submenu items are fully visible */
+.submenu {
+  width: 100%;
+  margin-right: 0;
+}
+
+.submenu-link {
+  width: 100%;
+  padding-right: 10px;
+}
+
+/* Ensure toggle button is fully visible - positioned relative to sidebar */
+.sidebar-toggle {
+  position: fixed;
+  top: 10px;
+  left: 225px; /* Position it at the right edge of the expanded sidebar (240px - 15px) */
+  width: 30px;
+  height: 30px;
+  background: #ca151c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 2px solid white;
+}
+
+/* Adjust position when sidebar is collapsed */
+.sidebar-toggle.collapsed {
+  left: 65px; /* Position it at the right edge of the collapsed sidebar (80px - 15px) */
+}
+
+.sidebar-toggle:hover {
+  background: #a01218;
+  transform: scale(1.1);
+}
+
+.sidebar-toggle i {
+  font-size: 14px;
+  margin: 0;
+  color: white;
 }

@@ -4,10 +4,16 @@
   <div class="row">
     <div class="col-lg-3">
       
-  <nav class="sidebar vh-100" style="width: 240px; position: fixed; top: 0; left: 0;">
+  <!-- Toggle Button - moved outside sidebar -->
+  <div class="sidebar-toggle" [class.collapsed]="isCollapsed" (click)="toggleSidebar()">
+    <i class="bi" [class.bi-chevron-left]="!isCollapsed" [class.bi-chevron-right]="isCollapsed"></i>
+  </div>
+      
+  <nav class="sidebar vh-100" [class.collapsed]="isCollapsed" style="width: 240px; position: fixed; top: 0; left: 0;">
+  
   <!-- Logo -->
   <div class="p-0">
-    <a href="#" style="text-decoration: none; color: black;"><img src="logo-masrpay.png" alt="MasrPay Logo" width="70" height="70"  /><span style="font-size: 14px;"> Admin Dashboard </span>
+    <a href="#" style="text-decoration: none; color: black;"><img src="logo-masrpay.png" alt="MasrPay Logo" width="70" height="70"  /><span style="font-size: 14px;" [class.d-none]="isCollapsed"> Admin Dashboard </span>
       <hr class="mb-2 p-0">
    
    </a> 
@@ -15,26 +21,44 @@
 
   <!-- navigation -->
   <ul class="nav flex-column" id="navbarNav">
-     <li class="nav-item mb-2 active"><a class="nav-link" routerLink="/"><i class="bi bi-bar-chart-steps pe-2"></i>Dashboard</a></li>
-    <li class="nav-item mb-2"><a class="nav-link" routerLink="/"> <i class="bi bi-bar-chart-line pe-2"></i>Gateway Configuratio </a></li>
-     <li class="nav-item">
-          <a class="nav-link" routerLink="/merchants" data-bs-toggle="dropdown"><i class="bi bi-buildings pe-2"></i>Merchants</a>
-          <ul>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-check pe-2"></i>KYB</a></li>
-            <li class="my-2"><a class="dropdown-item" href="#"><i class="bi bi-envelope pe-2"></i> Mail Content </a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/dashboard')"><a class="nav-link" routerLink="/dashboard"><i class="bi bi-bar-chart-steps pe-2"></i><span [class.d-none]="isCollapsed">Dashboard</span></a></li>
+    <li class="nav-item mb-2" [class.active]="isActive('/gateway')"><a class="nav-link" routerLink="/gateway"> <i class="bi bi-bar-chart-line pe-2"></i><span [class.d-none]="isCollapsed">Gateway Configuration</span> </a></li>
+     
+     <!-- Merchants Category -->
+     <li class="nav-item" [class.active]="isParentActive()">
+          <a class="nav-link dropdown-toggle" (click)="toggleMerchants($event)" style="cursor: pointer;">
+            <i class="bi bi-buildings pe-2"></i>
+            <span [class.d-none]="isCollapsed">Merchants</span>
+            <i class="bi ms-auto" [class.bi-chevron-down]="isDropdownOpen('merchants')" [class.bi-chevron-right]="!isDropdownOpen('merchants')"></i>
+          </a>
+     </li>
+     
+     <!-- Merchants Submenu - separate container -->
+     <li class="submenu-container" [class.show]="isDropdownOpen('merchants')" [class.d-none]="isCollapsed">
+          <ul class="submenu">
+            <li class="submenu-item" [class.active]="isActive('/merchants/kyb')">
+              <a class="submenu-link" routerLink="/merchants/kyb">
+                <i class="bi bi-clipboard2-check pe-2"></i>KYB
+              </a>
+            </li>
+            <li class="submenu-item" [class.active]="isActive('/merchants/mail')">
+              <a class="submenu-link" routerLink="/merchants/mail">
+                <i class="bi bi-envelope pe-2"></i>Mail Content
+              </a>
+            </li>
           </ul>
      </li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-cash-stack pe-2"></i> Payments </a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-arrow-repeat pe-2"></i>Withdrawal</a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-people-fill pe-2"></i>Users </a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-person-gear pe-2"></i>Support Tickets </a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-list-task pe-2"></i>Roles</a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-person-circle pe-2"></i>My Profile </a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-flag pe-2"></i>Reports </a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-diagram-2 pe-2"></i>Site </a></li>
-     <li class="nav-item mb-2"><a class="nav-link" routerLink="/"><i class="bi bi-code-slash pe-2"></i>Front end</a></li>
-     <li class="nav-item pb-2"><a class="nav-link" routerLink="/"><i class="bi bi-share pe-2"></i>Communication</a></li>
 
+     <li class="nav-item mb-2" [class.active]="isActive('/payments')"><a class="nav-link" routerLink="/payments"><i class="bi bi-cash-stack pe-2"></i><span [class.d-none]="isCollapsed">Payments</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/withdrawal')"><a class="nav-link" routerLink="/withdrawal"><i class="bi bi-arrow-repeat pe-2"></i><span [class.d-none]="isCollapsed">Withdrawal</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/users')"><a class="nav-link" routerLink="/users"><i class="bi bi-people-fill pe-2"></i><span [class.d-none]="isCollapsed">Users</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/support')"><a class="nav-link" routerLink="/support"><i class="bi bi-person-gear pe-2"></i><span [class.d-none]="isCollapsed">Support Tickets</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/roles')"><a class="nav-link" routerLink="/roles"><i class="bi bi-list-task pe-2"></i><span [class.d-none]="isCollapsed">Roles</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/profile')"><a class="nav-link" routerLink="/profile"><i class="bi bi-person-circle pe-2"></i><span [class.d-none]="isCollapsed">My Profile</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/reports')"><a class="nav-link" routerLink="/reports"><i class="bi bi-flag pe-2"></i><span [class.d-none]="isCollapsed">Reports</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/site')"><a class="nav-link" routerLink="/site"><i class="bi bi-diagram-2 pe-2"></i><span [class.d-none]="isCollapsed">Site</span></a></li>
+     <li class="nav-item mb-2" [class.active]="isActive('/frontend')"><a class="nav-link" routerLink="/frontend"><i class="bi bi-code-slash pe-2"></i><span [class.d-none]="isCollapsed">Front end</span></a></li>
+     <li class="nav-item pb-2" [class.active]="isActive('/communication')"><a class="nav-link" routerLink="/communication"><i class="bi bi-share pe-2"></i><span [class.d-none]="isCollapsed">Communication</span></a></li>
 
   </ul>
 </nav>

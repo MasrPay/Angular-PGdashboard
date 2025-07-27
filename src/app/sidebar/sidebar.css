@@ -1,0 +1,36 @@
+#sidebar {
+  width: 250px;
+  transition: all 0.3s;
+}
+
+#sidebar.collapsed {
+  width: 80px;
+}
+
+#sidebar .nav-link i {
+  margin-right: 10px;
+}
+
+#sidebar.collapsed .nav-link span {
+  display: none;
+}
+
+#sidebar.collapsed h4 {
+  display: none;
+}
+nav i {
+  margin-right: 4px;
+  color: black;
+}
+.active {
+border-left: solid 4px #ca151c;
+}
+nav a {
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+} 
+nav ul
+{
+  list-style: none;
+}

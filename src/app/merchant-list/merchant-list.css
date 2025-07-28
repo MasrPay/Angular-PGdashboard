@@ -1,0 +1,32 @@
+.btn-link
+{
+    color: #000000;
+    text-decoration: none;
+}
+.page-link {
+    color: #000;
+    text-decoration: none;
+}
+.active>.page-link, .page-link.active 
+{
+    background-color: #dc3545;
+    color:aliceblue;
+    border: none;
+
+}
+.merchants-length {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   z-index: 1050; /* ensures it stays above most elements */
+   width: 100%;
+   background: #fff; /* optional: for better contrast */
+   padding: 8px 16px; /* optional: for spacing */
+
+}
+@media (max-width: 987px) {
+   tbody, td, tfoot, th, thead, tr{
+     font-size: 12px !important;
+    }
+}
+

@@ -15,7 +15,6 @@ export class MerchantListComponent implements OnInit {
   merchants: any[] = [];
   errorMsg: string = '';
   selectedStatus: string = '';
-
   constructor(
     private getService: GetService, 
     private router: Router,

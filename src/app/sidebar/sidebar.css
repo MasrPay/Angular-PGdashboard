@@ -260,10 +260,10 @@ nav ul {
 /* Ensure toggle button is fully visible - positioned relative to sidebar */
 .sidebar-toggle {
   position: fixed;
-  top: 10px;
+  top: 18px;
   left: 225px; /* Position it at the right edge of the expanded sidebar (240px - 15px) */
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   background: #ca151c;
   color: white;
   border-radius: 50%;
@@ -291,4 +291,11 @@ nav ul {
   font-size: 14px;
   margin: 0;
   color: white;
+}
+.icon
+{
+  position: absolute;
+  left:150px;
+
+  transition: transform 0.3s ease;
 }

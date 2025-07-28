@@ -4,13 +4,14 @@
   left: 240px; /* Start after sidebar width */
   right: 0;
   height: 60px;
-  background-color: #f8f9fa;
+  background-color: #F4F4F4FF;
   border-bottom: 1px solid #e9ecef;
   z-index: 1000;
   display: flex;
   align-items: center;
   padding: 0 20px;
   transition: left 0.3s ease;
+  box-shadow: 0px 0px 1px #1a1a1a26, 0px 0px 2px #1a1a1a33;
 }
 
 /* When sidebar is collapsed, adjust navbar position */
@@ -47,6 +48,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #000 !important;
 }
 
 .icon-btn {
@@ -55,7 +57,7 @@
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;
-  color: #666;
+  color: #000;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;

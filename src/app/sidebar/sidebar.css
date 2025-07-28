@@ -204,6 +204,7 @@ nav ul {
 
 /* Sidebar scrolling functionality */
 .sidebar {
+  background-color: #fff;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
@@ -275,6 +276,7 @@ nav ul {
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   border: 2px solid white;
+
 }
 
 /* Adjust position when sidebar is collapsed */
@@ -298,4 +300,40 @@ nav ul {
   left:150px;
 
   transition: transform 0.3s ease;
+}
+.sidebar
+{
+  width: 240px; 
+  position: fixed; 
+  top: 0; 
+  left: 0;
+}
+
+@media (max-width: 803px) {
+
+  .icon {
+    left: 100px; /* Adjust for smaller screens */
+  }
+  .sidebar.collapsed .icon
+  {
+    font-size: 10px;
+    width: 60px !important;
+  }
+.sidebar-toggle i
+{
+  font-size: 12px;
+}
+.sidebar.collapsed .nav-link i {
+  margin-right: 0;
+  font-size: 16px;
+}
+
+.sidebar.collapsed .nav-link {
+  text-align: center;
+  padding: 2px 3px;
+  justify-content: center;
+}
+.sidebar.collapsed {
+  width: 60px !important;
+}
 }

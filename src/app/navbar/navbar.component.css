@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #000 !important;
+  color: #666;
 }
 
 .icon-btn {
@@ -57,7 +57,7 @@
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;
-  color: #000;
+  color: #666;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;

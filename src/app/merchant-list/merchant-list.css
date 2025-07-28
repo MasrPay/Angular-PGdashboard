@@ -24,9 +24,61 @@
    padding: 8px 16px; /* optional: for spacing */
 
 }
-@media (max-width: 987px) {
+.add-merchant
+{
+    font-size: 14px;
+}
+@media (max-width: 1010px) {
    tbody, td, tfoot, th, thead, tr{
      font-size: 12px !important;
+    
     }
+    .btn-link
+    {
+        font-size: 12px;
+    }
+    .page-link {
+        font-size: 10px !important;
+    }
+    .add-merchant
+{
+    font-size: 12px;
 }
+}
+
+@media (max-width: 803px) {
+   tbody, td, tfoot, th, thead, tr{
+     font-size: 10px !important;
+    }
+    .page-link {
+        font-size: 10px !important;
+    }
+     .btn-link
+    {
+        font-size: 10px;
+    }
+    .add-merchant
+{
+    font-size: 10px;
+}
+
+}
+@media (max-width: 611px) {
+
+   tbody, td, tfoot, th, thead, tr{
+     font-size: 8px !important;
+    }
+      .btn-link
+    {
+        font-size: 8px;
+    }
+      .page-link {
+        font-size: 8px !important;
+    }
+        .add-merchant
+{
+    font-size: 10px;
+}
+}
+
 

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MerchantList } from './merchant-list';
 
 describe('MerchantList', () => {

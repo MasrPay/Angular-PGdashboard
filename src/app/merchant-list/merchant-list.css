@@ -1,0 +1,38 @@
+
+.active>.page-link, .page-link.active
+{
+ color: #ffff;
+ background-color: #A11313FF;
+border: none;
+}
+.btn-danger:hover
+{
+    background-color: rgb(13, 13, 14);
+    color: #fff;
+    border: none;
+}
+ 
+.page-link
+{
+    color: #000;
+}
+.page-link:hover
+{
+    color: #ffff;
+    background-color: #A11313FF;
+    border: none;
+}
+.btn-link{
+    color: rgb(11, 11, 11);
+    text-decoration: none;
+}
+.btn-link:hover{
+    color:#A11313FF;
+  
+}
+.btn-dark:hover
+{
+    background-color: #A11313FF;
+    color: #fff;
+    border: none;
+}   

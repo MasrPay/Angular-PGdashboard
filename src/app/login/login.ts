@@ -38,11 +38,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.layoutService.hideSidebar();
+    this.layoutService.hideNavbar();
     this.loadCaptcha();
   }
 
   ngOnDestroy() {
     this.layoutService.showSidebarFn();
+    this.layoutService.showNavbarFn();
   }
 
   togglePasswordVisibility() {

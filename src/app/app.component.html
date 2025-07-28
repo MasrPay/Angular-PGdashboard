@@ -1,12 +1,20 @@
-<div class="d-flex">
-  <ng-container *ngIf="layoutService.showSidebar()">
-    <app-sidebar></app-sidebar>
+<div class="d-flex flex-column">
+  <!-- Navbar -->
+  <ng-container *ngIf="layoutService.showNavbar()">
+    <app-navbar [isSidebarCollapsed]="sidebarCollapsed"></app-navbar>
   </ng-container>
-  <div
-    class="flex-grow-1"
-    [style.marginLeft]="layoutService.showSidebar() ? '220px' : '0'"
-    style="min-height: 100vh;"
-  >
-    <router-outlet></router-outlet>
+  
+  <!-- Main content area -->
+  <div class="d-flex" [style.marginTop]="layoutService.showNavbar() ? '60px' : '0'">
+    <ng-container *ngIf="layoutService.showSidebar()">
+      <app-sidebar (sidebarToggle)="onSidebarToggle($event)"></app-sidebar>
+    </ng-container>
+    <div
+      class="flex-grow-1"
+      [style.marginLeft]="layoutService.showSidebar() ? '220px' : '0'"
+      style="min-height: 100vh;"
+    >
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

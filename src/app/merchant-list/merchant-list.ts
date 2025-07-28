@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { GetService } from '../get.service';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-merchant-list',
@@ -15,9 +16,14 @@ export class MerchantListComponent implements OnInit {
   errorMsg: string = '';
   selectedStatus: string = '';
 
-  constructor(private getService: GetService, private router: Router) {}
+  constructor(
+    private getService: GetService, 
+    private router: Router,
+    private layoutService: LayoutService
+  ) {}
 
   ngOnInit(): void {
+    this.layoutService.showNavbarFn();
     const savedStatus = localStorage.getItem('merchantFilterStatus');
     if (savedStatus) {
       this.selectedStatus = savedStatus;

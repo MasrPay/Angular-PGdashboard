@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
@@ -11,6 +11,8 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./sidebar.css']
 })
 export class SidebarComponent implements OnInit {
+  @Output() sidebarToggle = new EventEmitter<boolean>();
+  
   isCollapsed = false;
   currentRoute = '';
   
@@ -36,6 +38,7 @@ export class SidebarComponent implements OnInit {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    this.sidebarToggle.emit(this.isCollapsed);
   }
 
   toggleDropdown(category: string) {

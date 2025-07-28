@@ -3,9 +3,14 @@ import { LoginComponent } from './login/login';
 import { MerchantListComponent } from './merchant-list/merchant-list';
 import { CreateUserComponent } from './create-user/create-user';
 import { MyProfileComponent } from './my-profile/my-profile';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password';
+import { VerifyCodeComponent } from './verify-code/verify-code';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-code', component: VerifyCodeComponent },
   { path: 'dashboard', component: LoginComponent }, // Using LoginComponent as placeholder for dashboard
   { path: 'gateway', component: LoginComponent },
   

@@ -1,0 +1,90 @@
+<section class="mp-background">
+  <div class="container d-flex flex-column min-vh-100 font-sans">
+    <div class="row d-flex flex-grow-1">
+      <div class="col-lg-12 z-1 pt-4">
+        <img src="image.png" alt="MasrPay Logo" class="mb-4 z-1" style="width: 10rem;" />
+      </div>
+      <div class="d-md-flex col-lg-6 col-md-12 justify-content-start align-items-start px-4">
+        <div class="col-lg-10 col-md-12 m-auto">
+          <div class="position-relative z-0 m-auto text-center">
+            <h2 class="fw-bold text-dark mb-3">
+              Verify Your Code<br>
+              <span style="font-size: 20px; font-weight: 400;">Enter the code sent to your email.</span>
+            </h2>
+            <p class="text-secondary col-lg-12 col-sm-8 text-sm-center mx-auto">
+              Please check your inbox (and spam folder) for the verification code. Enter it below to continue.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 d-flex align-items-center justify-content-center px-3 pb-5 z-1">
+        <div class="w-100" style="max-width: 28rem;">
+          <div class="border border-secondary rounded p-4">
+            <h2 class="h4 fw-semibold text-center text-dark mb-4">Verify Code</h2>
+            <div *ngIf="successMsg" class="alert alert-success mb-3">{{ successMsg }}</div>
+            <div *ngIf="errorMsg" class="alert alert-danger mb-3">{{ errorMsg }}</div>
+            <form [formGroup]="verifyCodeForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label class="form-label text-secondary">Email Address</label>
+                <div style="color: red; font-size: 12px;">emailPrefilled: {{ emailPrefilled }}</div>
+                <input style="font-size: small;"
+                  type="email"
+                  formControlName="email"
+                  placeholder="Enter your email address"
+                  class="form-control"
+                  [attr.readonly]="emailPrefilled ? true : null" />
+                <div *ngIf="verifyCodeForm.get('email')?.touched && verifyCodeForm.get('email')?.invalid" class="form-text text-danger">
+                  <span *ngIf="verifyCodeForm.get('email')?.errors?.['required']">Email is required.</span>
+                  <span *ngIf="verifyCodeForm.get('email')?.errors?.['email']">Please enter a valid email address.</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-secondary">Verification Code</label>
+                <input style="font-size: small;"
+                  type="text"
+                  formControlName="token"
+                  placeholder="Enter the code you received"
+                  class="form-control" />
+                <div *ngIf="verifyCodeForm.get('token')?.touched && verifyCodeForm.get('token')?.invalid" class="form-text text-danger">
+                  Code is required.
+                </div>
+              </div>
+              <button
+                type="submit"
+                [disabled]="verifyCodeForm.invalid || isLoading"
+                class="btn w-100 mt-2 text-white fw-semibold shadow-sm"
+                style="background-color: rgb(204, 23, 30);">
+                <span *ngIf="isLoading">Verifying...</span>
+                <span *ngIf="!isLoading">Verify Code</span>
+              </button>
+              <div class="text-center mt-3">
+                <button type="button" class="btn btn-link p-0 text-dark text-decoration-underline" (click)="goToLogin()">← Back to Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row text-sm-center">
+        <div class="col-lg-6 col-sm-12">
+          <button type="button" class="btn btn-link me-3 text-dark modal-link p-0" (click)="openTermsModal()">Terms & conditions</button>
+          <button type="button" class="btn btn-link text-dark modal-link p-0" (click)="openSupportModal()">Support</button>
+        </div>
+        <div class="col-lg-6 col-sm-12 text-lg-end">
+          <p>©️ 2025 MasrPay. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-modal 
+    [isOpen]="showTermsModal" 
+    title="Terms & Conditions" 
+    [content]="getTermsContent()"
+    (closeModal)="closeTermsModal()">
+  </app-modal>
+  <app-modal 
+    [isOpen]="showSupportModal" 
+    title="Support" 
+    [content]="getSupportContent()"
+    (closeModal)="closeSupportModal()">
+  </app-modal>
+</section> 

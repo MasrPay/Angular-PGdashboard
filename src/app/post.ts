@@ -27,6 +27,21 @@ export class PostService {
     return this.http.post(`${this.baseUrl}/admin/auth/login`, payload, { headers });
   }
 
+  sendResetCode(payload: {
+    email: string;
+    captcha_code: number;
+    captcha_secret: string;
+    captcha_key: string;
+  }): Observable<any> {
+    const headers = new HttpHeaders({
+      'x-api-key': 'test',
+      'x-api-secret': 'test_secret',
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post(`${this.baseUrl}/admin/auth/send-reset-code`, payload, { headers });
+  }
+
   createUser(payload: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -36,6 +51,16 @@ export class PostService {
       'Accept': '*/*'
     });
     return this.http.post(`${this.baseUrl}/admin/manage-user/create`, payload, { headers });
+  }
+
+  verifyCode(payload: { email: string; token: string }): Observable<any> {
+    const headers = new HttpHeaders({
+      'x-api-key': 'test',
+      'x-api-secret': 'test_secret',
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post(`${this.baseUrl}/admin/auth/verify-code`, payload, { headers });
   }
 
 

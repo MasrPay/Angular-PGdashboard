@@ -75,7 +75,7 @@
                 </div>
               </div>
               <div  class="text-end" style="font-size: small;">
-                <a href="#" class="text-dark text-decoration-underline">Forgot password?</a>
+                <button type="button" class="btn btn-link p-0 text-dark text-decoration-underline" (click)="goToForgotPassword()">Forgot password?</button>
               </div>
               <!-- CAPTCHA Section -->
               <div class="mb-3">
@@ -108,8 +108,8 @@
       <!-- footer -->
       <div class="row text-sm-center">
         <div class="col-lg-6 col-sm-12">
-           <a href="#" class="me-3 text-dark">Terms & conditions</a>
-           <a href="#" class="text-dark">Support</a>
+           <button type="button" class="btn btn-link me-3 text-dark modal-link p-0" (click)="openTermsModal()">Terms & conditions</button>
+           <button type="button" class="btn btn-link text-dark modal-link p-0" (click)="openSupportModal()">Support</button>
         </div>
         <div class="col-lg-6 col-sm-12 text-lg-end">
           <p>©️ 2025 MasrPay. All rights reserved.</p>
@@ -117,6 +117,21 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Components - NEW ADDITION -->
+  <app-modal 
+    [isOpen]="showTermsModal" 
+    title="Terms & Conditions" 
+    [content]="getTermsContent()"
+    (closeModal)="closeTermsModal()">
+  </app-modal>
+
+  <app-modal 
+    [isOpen]="showSupportModal" 
+    title="Support" 
+    [content]="getSupportContent()"
+    (closeModal)="closeSupportModal()">
+  </app-modal>
 
 </section>
 

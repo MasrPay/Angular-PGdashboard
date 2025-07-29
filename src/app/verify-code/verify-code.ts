@@ -18,6 +18,7 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
   errorMsg: string | null = null;
   successMsg: string | null = null;
   isLoading = false;
+  isResending = false;
   emailPrefilled = false;
 
   // Modal states
@@ -72,18 +73,69 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
       token: this.verifyCodeForm.value.token
     };
     this.postService.verifyCode(payload).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.isLoading = false;
         if (res.status === 200) {
-          this.successMsg = 'Code verified successfully! You may now reset your password.';
-          // Optionally redirect to reset password page
+          this.successMsg = 'Code verified successfully! Redirecting to password reset...';
+          // Store email and token for reset password page
+          sessionStorage.setItem('verifyEmail', this.verifyCodeForm.value.email);
+          sessionStorage.setItem('verifyToken', this.verifyCodeForm.value.token);
+          // Redirect to reset password page after a short delay
+          setTimeout(() => {
+            this.router.navigate(['/reset-password'], {
+              state: {
+                email: this.verifyCodeForm.value.email,
+                token: this.verifyCodeForm.value.token
+              }
+            });
+          }, 1500);
         } else {
           this.errorMsg = res.message || 'Invalid code. Please try again.';
         }
       },
-      error: (err) => {
+      error: (err: any) => {
         this.isLoading = false;
-        this.errorMsg = 'Server error. Please try again.';
+        this.errorMsg = err.error?.message || 'Invalid code. Please try again.';
+      }
+    });
+  }
+
+  resendCode() {
+    if (!this.verifyCodeForm.value.email) {
+      this.errorMsg = 'Please enter your email address first.';
+      return;
+    }
+    this.isResending = true;
+    this.errorMsg = null;
+    this.successMsg = null;
+    
+    // Generate new captcha first
+    this.postService.generateCaptcha().subscribe({
+      next: (captchaRes: any) => {
+        const payload = {
+          email: this.verifyCodeForm.value.email,
+          captcha_code: captchaRes.captcha_code,
+          captcha_secret: captchaRes.captcha_secret,
+          captcha_key: captchaRes.captcha_key
+        };
+        this.postService.sendResetCode(payload).subscribe({
+          next: (res: any) => {
+            this.isResending = false;
+            if (res.status === 200) {
+              this.successMsg = 'Reset code sent successfully! Please check your email.';
+            } else {
+              this.errorMsg = res.message || 'Failed to send reset code. Please try again.';
+            }
+          },
+          error: (err: any) => {
+            this.isResending = false;
+            this.errorMsg = err.error?.message || 'Failed to send reset code. Please try again.';
+          }
+        });
+      },
+      error: (err: any) => {
+        this.isResending = false;
+        this.errorMsg = 'Failed to generate captcha. Please try again.';
       }
     });
   }

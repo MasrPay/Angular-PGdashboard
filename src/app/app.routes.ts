@@ -5,12 +5,14 @@ import { CreateUserComponent } from './create-user/create-user';
 import { MyProfileComponent } from './my-profile/my-profile';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password';
 import { VerifyCodeComponent } from './verify-code/verify-code';
+import { ResetPasswordComponent } from './reset-password/reset-password';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-code', component: VerifyCodeComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'dashboard', component: LoginComponent }, // Using LoginComponent as placeholder for dashboard
   { path: 'gateway', component: LoginComponent },
   

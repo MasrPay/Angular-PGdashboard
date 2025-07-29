@@ -26,7 +26,6 @@
             <form [formGroup]="verifyCodeForm" (ngSubmit)="onSubmit()">
               <div class="mb-3">
                 <label class="form-label text-secondary">Email Address</label>
-                <div style="color: red; font-size: 12px;">emailPrefilled: {{ emailPrefilled }}</div>
                 <input style="font-size: small;"
                   type="email"
                   formControlName="email"
@@ -59,6 +58,16 @@
               </button>
               <div class="text-center mt-3">
                 <button type="button" class="btn btn-link p-0 text-dark text-decoration-underline" (click)="goToLogin()">← Back to Login</button>
+              </div>
+              <div class="text-center mt-2">
+                <button 
+                  type="button" 
+                  class="btn btn-link p-0 text-dark text-decoration-underline" 
+                  (click)="resendCode()"
+                  [disabled]="isResending">
+                  <span *ngIf="isResending">Sending...</span>
+                  <span *ngIf="!isResending">Didn't receive code? Resend</span>
+                </button>
               </div>
             </form>
           </div>

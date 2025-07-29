@@ -63,6 +63,16 @@ export class PostService {
     return this.http.post(`${this.baseUrl}/admin/auth/verify-code`, payload, { headers });
   }
 
+  resetPassword(payload: { email: string; token: string; password: string; password_confirmation: string }): Observable<any> {
+    const headers = new HttpHeaders({
+      'x-api-key': 'test',
+      'x-api-secret': 'test_secret',
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post(`${this.baseUrl}/admin/auth/reset-password`, payload, { headers });
+  }
+
 
   // If there's a verify endpoint like `/Capatcha/Verify`, define it here:
   // verifyCaptcha(data: {

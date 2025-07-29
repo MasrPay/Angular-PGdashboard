@@ -1,0 +1,84 @@
+.btn-link
+{
+    color: #000000;
+    text-decoration: none;
+}
+.page-link {
+    color: #000;
+    text-decoration: none;
+}
+.active>.page-link, .page-link.active 
+{
+    background-color: #dc3545;
+    color:aliceblue;
+    border: none;
+
+}
+.merchants-length {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   z-index: 1050; /* ensures it stays above most elements */
+   width: 100%;
+   background: #fff; /* optional: for better contrast */
+   padding: 8px 16px; /* optional: for spacing */
+
+}
+.add-merchant
+{
+    font-size: 14px;
+}
+@media (max-width: 1010px) {
+   tbody, td, tfoot, th, thead, tr{
+     font-size: 12px !important;
+    
+    }
+    .btn-link
+    {
+        font-size: 12px;
+    }
+    .page-link {
+        font-size: 10px !important;
+    }
+    .add-merchant
+{
+    font-size: 12px;
+}
+}
+
+@media (max-width: 803px) {
+   tbody, td, tfoot, th, thead, tr{
+     font-size: 10px !important;
+    }
+    .page-link {
+        font-size: 10px !important;
+    }
+     .btn-link
+    {
+        font-size: 10px;
+    }
+    .add-merchant
+{
+    font-size: 10px;
+}
+
+}
+@media (max-width: 611px) {
+
+   tbody, td, tfoot, th, thead, tr{
+     font-size: 8px !important;
+    }
+      .btn-link
+    {
+        font-size: 8px;
+    }
+      .page-link {
+        font-size: 8px !important;
+    }
+        .add-merchant
+{
+    font-size: 10px;
+}
+}
+
+

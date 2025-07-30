@@ -1,4 +1,4 @@
- .stepper {
+    .stepper {
       display: flex;
       justify-content: space-between;
       position: relative;
@@ -84,4 +84,9 @@
     .btn-next:hover,
     .btn-back:hover {
       opacity: 0.9;
+    }
+    hr
+    {
+      border-bottom: 2px solid ;
+    
     }

@@ -1,31 +1,103 @@
-<div class="container py-4">
-  <h2>User Profile</h2>
-  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
-  <div *ngIf="profile" class="card shadow-sm p-4" style="max-width: 500px;">
-    <h4>{{ profile.name }}</h4>
-    <div class="text-muted mb-2">{{ profile.role[0] || '' }}</div>
-    <div class="mb-2"><span class="fw-bold">ID:</span> <span class="text-danger">{{ profile.id }}</span></div>
-    <form>
-      <div class="mb-3">
-        <label class="form-label">Work Email</label>
-        <input class="form-control" [value]="profile.email" readonly />
+<div class="container">
+    <div class="row mt-3">
+      <div class="col-lg-12 my-2">
+        <h2><strong>User Profile</strong></h2>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Phone Number</label>
-        <input class="form-control" [value]="profile.phone" readonly />
+      <!-- Left Card -->
+      <div class="col-lg-4">
+        <div class="card p-4">
+          <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+          <div *ngIf="profile" class="p-4"></div>
+          <h5 class="pt-3 pb-2"><strong>{{ profile.name }}</strong></h5>
+          <div class="text-muted mb-2">{{ profile.role[0] || '' }}</div>
+          <p class="pb-3">Sales Admin <span class="text-danger float-end">ID:{{ profile.id }}</span></p>
+
+       <div class="card-in p-3 rounded">
+           <div class="my-2 py-1">
+            <label class="form-label">Work Email</label>
+             <input type="email" class="form-control" [value]="profile.email" readonly />
+          </div>
+          <div class="py-1">
+            <label class="form-label">Phone Number</label>
+             <input type="number" class="form-control" [value]="profile.phone" readonly />
+          </div>
+          <div class="pt-2 pb-5">
+            <label class="form-label">Department</label>
+            <input type="text" class="form-control" value="Sales Dept." readonly />
+          </div>
+          <hr>
+          <div class="py-2">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" [value]="profile.user_name" readonly />
+          </div>
+          <div class="text-end mt-3">
+            <button class="btn btn-custom-red">Save Changes</button>
+          </div>
+       </div>
+          <div class="text-end text-danger mt-4">
+             <label class="form-label text-danger">Date of creation</label>
+             <span value="10-09-2023" readonly> 10-09-2023</span>
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Department</label>
-        <input class="form-control" value="Sales Dept." readonly />
+
+      <!-- Right Logs Section -->
+      <div class="col-lg-8">
+        <ul class="nav nav-tabs mb-3">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Password</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Logs</a>
+          </li>
+        </ul>
+
+        <div class="card p-3">
+          <div class="row py-3">
+                 <div class="col-lg-6">
+            <h6>Recent activities</h6>
+          </div>
+
+          <div class="col-lg-6 d-flex justify-content-end mb-3">
+            <input type="date" class="form-control form-control-sm me-2" placeholder="From">
+            <input type="date" class="form-control form-control-sm" placeholder="To">
+          </div>
+
+          </div>
+        
+
+          <div class="row card-in p-3 rounded">
+            <div class="col-lg-8">
+              <h3 class="date-label">TODAY</h3>
+                <div class="col-lg-10">
+                    <div class="log-item">
+              <strong>Adam Murphy</strong> — Comment on Project <br>
+              <small class="text-muted">10 mins ago</small>
+                </div>
+                <div class="log-item">
+                  <strong>Adam Murphy</strong> — Comment on Project <br>
+                  <small class="text-muted">10 mins ago</small>
+                </div>
+                <div class="log-item">
+                  <strong>Adam Murphy</strong> — Comment on Project <br>
+                  <small class="text-muted">10 mins ago</small>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <p class="date-label mt-4">YESTERDAY</p>
+              <div class="col-lg-10">
+                <div class="log-item">
+              <strong>Adam Murphy</strong> — Comment on Project <br>
+              <small class="text-muted">10 mins ago</small>
+            </div>
+              </div>
+
+            </div>
+          </div>
+
+          
+        </div>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Username</label>
-        <input class="form-control" [value]="profile.user_name" readonly />
-      </div>
-      <div class="mb-3">
-        <label class="form-label text-danger">Date of creation</label>
-        <input class="form-control" value="10-09-2023" readonly />
-      </div>
-    </form>
+    </div>
   </div>
-</div>

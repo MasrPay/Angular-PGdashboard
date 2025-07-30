@@ -1,0 +1,33 @@
+ .card {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      background-color: #F9F9F9FF;
+    }
+     .card-in {
+   
+      background-color: #EAECF0FF;
+    }
+    .nav-tabs .nav-link{
+        text-decoration: none;
+        color: #000;
+    }
+    .nav-tabs .nav-link.active {
+      color: #d21e1e;
+      border-bottom: 2px solid #d21e1e;
+      background: none;
+    }
+    .log-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .date-label {
+      font-size: 0.9rem;
+      color: #888;
+      font-weight: bold;
+    }
+    .btn-custom-red {
+      background-color: #b30000;
+      color: white;
+    }
+    .btn-custom-red:hover {
+      background-color: #990000;
+    }

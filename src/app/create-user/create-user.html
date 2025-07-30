@@ -36,84 +36,149 @@
             <div class="row g-3">
             <div class="col-lg-12">
                 <label class="form-label">Company Name*</label>
-                <input formControlName="first_name" type="text" class="form-control" placeholder="Company Name" required>
+                <input formControlName="company_name" type="text" class="form-control" placeholder="Company Name" required>
+                <div *ngIf="createForm.get('company_name')?.touched && createForm.get('company_name')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('company_name')?.errors?.['required']">Company name is required.</span>
+                    <span *ngIf="createForm.get('company_name')?.errors?.['maxlength']">Company name cannot exceed 255 characters.</span>
+                </div>
             </div>
             <div class="col-lg-6">
                 <label class="form-label">Contact Phone Number*</label>
                 <input formControlName="phone" type="tel" class="form-control" placeholder="Phone Number" required>
+                <div *ngIf="createForm.get('phone')?.touched && createForm.get('phone')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('phone')?.errors?.['required']">Phone number is required.</span>
+                    <span *ngIf="createForm.get('phone')?.errors?.['maxlength']">Phone number cannot exceed 15 characters.</span>
+                </div>
             </div>
 
             <div class="col-lg-6">
                 <label class="form-label">Contact Name*</label>
-                <input type="text" formControlName="last_name" class="form-control" placeholder="Contact Name" required>
+                <input type="text" formControlName="contact_name" class="form-control" placeholder="Contact Name" required>
+                <div *ngIf="createForm.get('contact_name')?.touched && createForm.get('contact_name')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('contact_name')?.errors?.['required']">Contact name is required.</span>
+                    <span *ngIf="createForm.get('contact_name')?.errors?.['maxlength']">Contact name cannot exceed 255 characters.</span>
+                </div>
             </div>
             <div class="col-lg-6">
-                <label class="form-label">Website Page Link*</label>
+                <label class="form-label">Website Page Link</label>
                 <input type="url" formControlName="page_link" class="form-control" placeholder="Website/Page Link">
+                <div *ngIf="createForm.get('page_link')?.touched && createForm.get('page_link')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('page_link')?.errors?.['pattern']">Please enter a valid URL starting with http:// or https://</span>
+                </div>
             </div>
 
             <div class="col-lg-6">
                 <label class="form-label">Contact Email*</label>
-                  <input type="email" formControlName="email" class="form-control" placeholder="Contact E-mail" required>
+                <input type="email" formControlName="email" class="form-control" placeholder="Contact E-mail" required>
+                <div *ngIf="createForm.get('email')?.touched && createForm.get('email')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('email')?.errors?.['required']">Email is required.</span>
+                    <span *ngIf="createForm.get('email')?.errors?.['email']">Please enter a valid email address.</span>
+                    <span *ngIf="createForm.get('email')?.errors?.['maxlength']">Email cannot exceed 255 characters.</span>
+                </div>
             </div>
             <div class="col-lg-6">
                 <label type="text" class="form-label">Headquarter City*</label>
                 <input formControlName="city" class="form-control" placeholder="Headquarter City" required>
+                <div *ngIf="createForm.get('city')?.touched && createForm.get('city')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('city')?.errors?.['required']">City is required.</span>
+                    <span *ngIf="createForm.get('city')?.errors?.['maxlength']">City cannot exceed 255 characters.</span>
+                </div>
             </div>
 
-            <div class="col-lg-6">
-                <label class="form-label d-block">Product</label>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="ecom" (change)="onModuleChange($event, 1)">
-                <label class="form-check-label" for="ecom">eCommerce</label>
+
+                <div class="col-lg-6">
+                <label class="form-label">Product*</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="ecom" (change)="onModuleChange($event, 1)">
+                    <label class="form-check-label" for="ecom">eCommerce</label>
                 </div>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="pos" (change)="onModuleChange($event, 2)">
-                <label class="form-check-label" for="pos">POS</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="pos" (change)="onModuleChange($event, 2)">
+                    <label class="form-check-label" for="pos">POS</label>
+                </div>
+                <div *ngIf="createForm.get('modules')?.touched && createForm.get('modules')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('modules')?.errors?.['required']">At least one module must be selected.</span>
                 </div>
             </div>
               <div class="col-lg-4">
                 <label type="text" class="form-label">Country*</label>
-                <input class="form-control" placeholder="Country" required>
+                <input formControlName="country" class="form-control" placeholder="Country" required>
+                <div *ngIf="createForm.get('country')?.touched && createForm.get('country')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('country')?.errors?.['required']">Country is required.</span>
+                    <span *ngIf="createForm.get('country')?.errors?.['maxlength']">Country cannot exceed 255 characters.</span>
+                </div>
             </div>
               <div class="col-lg-4">
                 <label type="text" class="form-label">City**</label>
-                <input class="form-control" placeholder="City" required>
+                <input formControlName="city" class="form-control" placeholder="City" required>
+                <div *ngIf="createForm.get('city')?.touched && createForm.get('city')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('city')?.errors?.['required']">City is required.</span>
+                    <span *ngIf="createForm.get('city')?.errors?.['maxlength']">City cannot exceed 255 characters.</span>
+                </div>
             </div>
               <div class="col-lg-4">
                 <label type="text" class="form-label">Postal Code*</label>
-                <input class="form-control" placeholder="Postal Code" required>
+                <input formControlName="postal_code" class="form-control" placeholder="Postal Code" required>
+                <div *ngIf="createForm.get('postal_code')?.touched && createForm.get('postal_code')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('postal_code')?.errors?.['required']">Postal code is required.</span>
+                    <span *ngIf="createForm.get('postal_code')?.errors?.['pattern']">Postal code must be 3-10 characters with letters, numbers, hyphens, or spaces only.</span>
+                </div>
             </div>
 
             <hr>
             <div class="col-lg-6">
                 <label class="form-label">Username*</label>
-                <input type="text" class="form-control" required>
+                <input type="text" formControlName="user_name" class="form-control" required>
+                <div *ngIf="createForm.get('user_name')?.touched && createForm.get('user_name')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('user_name')?.errors?.['required']">Username is required.</span>
+                    <span *ngIf="createForm.get('user_name')?.errors?.['maxlength']">Username cannot exceed 255 characters.</span>
+                </div>
             </div>
             <div class="col-lg-6">
                 <label class="form-label">Password*</label>
-                <input type="password" class="form-control" required>
+                <input type="password" formControlName="password" class="form-control" required>
+                <div *ngIf="createForm.get('password')?.touched && createForm.get('password')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('password')?.errors?.['required']">Password is required.</span>
+                    <span *ngIf="createForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters.</span>
+                </div>
             </div>
+            <div class="col-lg-6">
+                <label class="form-label">Confirm Password*</label>
+                <input type="password" formControlName="password_confirmation" class="form-control" required>
+                <div *ngIf="createForm.get('password_confirmation')?.touched && createForm.get('password_confirmation')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('password_confirmation')?.errors?.['required']">Password confirmation is required.</span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="form-label">Address*</label>
+                <input type="text" formControlName="address" class="form-control" placeholder="Address" required>
+                <div *ngIf="createForm.get('address')?.touched && createForm.get('address')?.invalid" class="form-text text-danger">
+                    <span *ngIf="createForm.get('address')?.errors?.['required']">Address is required.</span>
+                    <span *ngIf="createForm.get('address')?.errors?.['maxlength']">Address cannot exceed 255 characters.</span>
+                </div>
+            </div>
+
+
             </div>
          <div *ngIf="message" class="alert alert-success">{{ message }}</div>
         <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-        <div class="d-flex justify-content-center">
+        <div *ngIf="createForm.hasError('passwordMismatch')" class="alert alert-danger">Passwords do not match.</div>
+
+        <!-- Submit and Back buttons inside form -->
+        <div class="row pb-3">
+            <div class="col-lg-6">
+                <!-- Back Button -->
+                <div class="my-2">
+                    <button type="button" class="btn btn-back"><i class="bi bi-arrow-left"></i> Back</button>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex justify-content-end my-2">
+                    <button type="submit" class="btn btn-create" [disabled]="createForm.invalid">Create Merchant</button>
+                </div>
+            </div>
         </div>
         </form>
-        </div>
-    </div>
-    <!-- button -->
-    <div class="row pb-3">
-        <div class="col-lg-6">
-              <!-- Back Button -->
-                <div class="my-2">
-                <button class="btn btn-back"><i class="bi bi-arrow-left"></i> Back</button>
-                </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="d-flex justify-content-end my-2">
-           <button type="submit" class="btn btn-create">Create Merchant</button>
-            </div>
         </div>
     </div>
 </div>

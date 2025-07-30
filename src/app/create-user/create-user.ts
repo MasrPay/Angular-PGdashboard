@@ -22,21 +22,20 @@ export class CreateUserComponent implements OnInit {
     private layoutService: LayoutService
   ) {
     this.createForm = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      user_name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-      password: ['', Validators.required],
+      company_name: ['', [Validators.required, Validators.maxLength(255)]],
+      contact_name: ['', [Validators.required, Validators.maxLength(255)]],
+      user_name: ['', [Validators.required, Validators.maxLength(255)]],
+      phone: ['', [Validators.required, Validators.maxLength(15)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', Validators.required],
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
-      postal_code: ['', Validators.required],
-      country_code: ['', Validators.required],
-      page_link: ['', Validators.required],
-      modules: this.fb.array([])
-    });
+      address: ['', [Validators.required, Validators.maxLength(255)]],
+      city: ['', [Validators.required, Validators.maxLength(255)]],
+      country: ['', [Validators.required, Validators.maxLength(255)]],
+      postal_code: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9\- ]{3,10}$/)]],
+      page_link: ['', [Validators.pattern(/^https?:\/\/.+/)]],
+      modules: this.fb.array([], [Validators.required])
+    }, { validators: this.passwordMatchValidator });
   }
 
   ngOnInit(): void {
@@ -45,6 +44,12 @@ export class CreateUserComponent implements OnInit {
 
   get modules(): FormArray {
     return this.createForm.get('modules') as FormArray;
+  }
+
+  passwordMatchValidator(group: FormGroup): {[key: string]: any} | null {
+    const password = group.get('password')?.value;
+    const passwordConfirmation = group.get('password_confirmation')?.value;
+    return password === passwordConfirmation ? null : { 'passwordMismatch': true };
   }
 
   onModuleChange(event: any, value: number) {

@@ -73,6 +73,29 @@ export class PostService {
     return this.http.post(`${this.baseUrl}/admin/auth/reset-password`, payload, { headers });
   }
 
+  changePassword(payload: { current_password: string; password: string; password_confirmation: string }): Observable<any> {
+    const token = sessionStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'x-api-key': 'test',
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post(`${this.baseUrl}/admin/change-password`, payload, { headers });
+  }
+
+  acceptTerms(): Observable<any> {
+    const token = sessionStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'x-api-key': 'test',
+      'x-api-secret': 'test_secret',
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post(`${this.baseUrl}/admin/accept-terms`, {}, { headers });
+  }
+
 
   // If there's a verify endpoint like `/Capatcha/Verify`, define it here:
   // verifyCaptcha(data: {

@@ -5,6 +5,7 @@ import { PostService } from '../post';
 import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
 import { ModalComponent } from '../shared/modal/modal.component';
+import { FirstTimeService } from '../first-time.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
     private zone: NgZone, // Inject NgZone
     private router: Router,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private firstTimeService: FirstTimeService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -94,7 +96,28 @@ export class LoginComponent implements OnInit, OnDestroy {
       next: (res) => {
         if (res.status === 200 && res.data?.access_token) {
           sessionStorage.setItem('access_token', res.data.access_token);
-          this.router.navigate(['/merchants']);
+          
+          // Check backend status and set local flags accordingly
+          this.firstTimeService.checkBackendTermsStatus().subscribe({
+            next: () => {
+              // Terms not accepted yet, clear flags
+              sessionStorage.removeItem('terms_accepted');
+              sessionStorage.removeItem('password_changed');
+              this.checkFirstTimeStatusAndNavigate();
+            },
+            error: (err) => {
+              // Terms already accepted, set the flag
+              if (err.error?.message?.includes('already accepted')) {
+                sessionStorage.setItem('terms_accepted', 'true');
+                this.checkFirstTimeStatusAndNavigate();
+              } else {
+                // Other error, clear flags and proceed
+                sessionStorage.removeItem('terms_accepted');
+                sessionStorage.removeItem('password_changed');
+                this.checkFirstTimeStatusAndNavigate();
+              }
+            }
+          });
         } else {
           alert('Login failed: ' + (res.message || 'Unknown error'));
           this.loadCaptcha();
@@ -225,5 +248,20 @@ Thank you for choosing MasrPay!`;
 
   goToForgotPassword() {
     this.router.navigate(['/forgot-password']);
+  }
+
+  private checkFirstTimeStatusAndNavigate() {
+    this.firstTimeService.checkFirstTimeStatus().subscribe(status => {
+      console.log('Login - First-time status:', status);
+      if (status.isFirstTime) {
+        console.log('Login - Redirecting new user to dashboard');
+        // Navigate to dashboard where first-time flow will be triggered
+        this.router.navigate(['/dashboard']);
+      } else {
+        console.log('Login - Redirecting existing user to merchants');
+        // Regular user, go to merchants
+        this.router.navigate(['/merchants']);
+      }
+    });
   }
 }

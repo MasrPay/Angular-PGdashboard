@@ -12,7 +12,9 @@ export class ModalComponent implements OnInit {
   @Input() isOpen = false;
   @Input() title = '';
   @Input() content = '';
+  @Input() showAcceptButton = false;
   @Output() closeModal = new EventEmitter<void>();
+  @Output() acceptModal = new EventEmitter<void>();
 
   ngOnInit() {
     console.log('ModalComponent initialized');
@@ -28,5 +30,10 @@ export class ModalComponent implements OnInit {
     if (event.target === event.currentTarget) {
       this.onClose();
     }
+  }
+
+  onAccept() {
+    console.log('Accept clicked');
+    this.acceptModal.emit();
   }
 } 

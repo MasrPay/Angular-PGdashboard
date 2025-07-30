@@ -6,6 +6,9 @@ import { MyProfileComponent } from './my-profile/my-profile';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password';
 import { VerifyCodeComponent } from './verify-code/verify-code';
 import { ResetPasswordComponent } from './reset-password/reset-password';
+import { PasswordChangedComponent } from './password-changed/password-changed';
+import { FirstTimePasswordComponent } from './first-time-password/first-time-password';
+import { DashboardComponent } from './dashboard/dashboard';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,7 +16,9 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-code', component: VerifyCodeComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'dashboard', component: LoginComponent }, // Using LoginComponent as placeholder for dashboard
+  { path: 'password-changed', component: PasswordChangedComponent },
+  { path: 'first-time-password', component: FirstTimePasswordComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'gateway', component: LoginComponent },
   
   // Merchants routes

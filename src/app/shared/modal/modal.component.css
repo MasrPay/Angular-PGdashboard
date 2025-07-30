@@ -99,6 +99,22 @@
   background-color: #a01218;
 }
 
+.modal-btn-secondary {
+  background-color: #6c757d;
+}
+
+.modal-btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.modal-btn-primary {
+  background-color: #cc171e;
+}
+
+.modal-btn-primary:hover {
+  background-color: #b3141a;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .modal-container {

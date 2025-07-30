@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../post';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-create-user',
@@ -10,12 +11,16 @@ import { PostService } from '../post';
   templateUrl: './create-user.html',
   styleUrls: ['./create-user.css']
 })
-export class CreateUserComponent {
+export class CreateUserComponent implements OnInit {
   createForm: FormGroup;
   message: string = '';
   error: string = '';
 
-  constructor(private fb: FormBuilder, private postService: PostService) {
+  constructor(
+    private fb: FormBuilder, 
+    private postService: PostService,
+    private layoutService: LayoutService
+  ) {
     this.createForm = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -32,6 +37,10 @@ export class CreateUserComponent {
       page_link: ['', Validators.required],
       modules: this.fb.array([])
     });
+  }
+
+  ngOnInit(): void {
+    this.layoutService.showNavbarFn();
   }
 
   get modules(): FormArray {

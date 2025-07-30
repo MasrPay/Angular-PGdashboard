@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GetService } from '../get.service';
 import { Router } from '@angular/router';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -14,9 +15,14 @@ export class MyProfileComponent implements OnInit {
   profile: any = null;
   errorMsg: string = '';
 
-  constructor(private getService: GetService, private router: Router) {}
+  constructor(
+    private getService: GetService, 
+    private router: Router,
+    private layoutService: LayoutService
+  ) {}
 
   ngOnInit(): void {
+    this.layoutService.showNavbarFn();
     const cachedProfile = localStorage.getItem('userProfile');
     if (cachedProfile) {
       this.profile = JSON.parse(cachedProfile);

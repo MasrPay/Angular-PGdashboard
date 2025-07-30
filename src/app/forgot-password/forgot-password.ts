@@ -1,42 +1,40 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PostService } from '../post';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { LayoutService } from '../layout.service';
+import { PostService } from '../post';
 import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-forgot-password',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, ModalComponent],
-  templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  templateUrl: './forgot-password.html',
+  styleUrls: ['./forgot-password.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
+  forgotPasswordForm: FormGroup;
   captchaImage: string = '';
   captchaKey: string = '';
   captchaSecret: string = '';
-  showPassword: boolean = false;
+  errorMsg: string | null = null;
+  successMsg: string | null = null;
+  isLoading = false;
 
-  // Modal states - NEW ADDITION
+  // Modal states
   showTermsModal = false;
   showSupportModal = false;
-
- // @ViewChild('captchaCanvas', { static: true }) captchaCanvas!: ElementRef<HTMLCanvasElement>;
 
   constructor(
     private fb: FormBuilder,
     private postService: PostService,
-    private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
-    private zone: NgZone, // Inject NgZone
     private router: Router,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private cdr: ChangeDetectorRef
   ) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       captcha: ['', Validators.required]
     });
   }
@@ -52,80 +50,76 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.layoutService.showNavbarFn();
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
   loadCaptcha() {
     this.postService.generateCaptcha().subscribe({
       next: (res) => {
-        console.log('Full captcha response:', res);
+        console.log('Captcha response:', res);
         this.captchaImage = res.data.captcha_image;
         this.captchaKey = res.data.captcha_key;
         this.captchaSecret = res.data.captcha_secret;
-        console.log('captchaImage:', this.captchaImage);
-        console.log('captchaKey:', this.captchaKey);
-        console.log('captchaSecret:', this.captchaSecret);
-        this.cdr.detectChanges(); // Force Angular to check for updates
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Failed to load captcha:', err);
+        this.errorMsg = 'Failed to load CAPTCHA. Please try again.';
       }
     });
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+    if (this.forgotPasswordForm.invalid) {
+      this.forgotPasswordForm.markAllAsTouched();
       return;
     }
 
+    this.isLoading = true;
+    this.errorMsg = null;
+    this.successMsg = null;
+
     const payload = {
-      user_name: this.loginForm.value.username,
-      password: this.loginForm.value.password,
-      captcha_code: parseInt(this.loginForm.value.captcha), // Convert to number like Postman
+      email: this.forgotPasswordForm.value.email,
+      captcha_code: parseInt(this.forgotPasswordForm.value.captcha),
       captcha_secret: this.captchaSecret,
       captcha_key: this.captchaKey
     };
 
-   // console.log('Login payload:', payload); // Debug log
-
-    this.postService.login(payload).subscribe({
+    this.postService.sendResetCode(payload).subscribe({
       next: (res) => {
-        if (res.status === 200 && res.data?.access_token) {
-          sessionStorage.setItem('access_token', res.data.access_token);
-          this.router.navigate(['/merchants']);
+        this.isLoading = false;
+        if (res.status === 200) {
+          sessionStorage.setItem('verifyEmail', this.forgotPasswordForm.value.email);
+          this.router.navigate(['/verify-code'], { state: { email: this.forgotPasswordForm.value.email } });
         } else {
-          alert('Login failed: ' + (res.message || 'Unknown error'));
+          this.errorMsg = res.message || 'Failed to send reset code. Please try again.';
           this.loadCaptcha();
         }
       },
       error: (err) => {
-        console.error('Login error:', err); // Debug log
-        alert('Server error during login');
+        this.isLoading = false;
+        this.errorMsg = 'Server error. Please try again.';
         this.loadCaptcha();
       }
     });
   }
 
-  // NEW MODAL METHODS - ADDED WITHOUT REMOVING EXISTING CODE
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  // Modal methods
   openTermsModal() {
-    console.log('openTermsModal called');
     this.showTermsModal = true;
   }
 
   openSupportModal() {
-    console.log('openSupportModal called');
     this.showSupportModal = true;
   }
 
   closeTermsModal() {
-    console.log('closeTermsModal called');
     this.showTermsModal = false;
   }
 
   closeSupportModal() {
-    console.log('closeSupportModal called');
     this.showSupportModal = false;
   }
 
@@ -194,11 +188,11 @@ COMMON ISSUES:
 • Clear browser cache and cookies
 • Try using a different browser
 
-2. PAYMENT ISSUES
-• Verify your payment information
-• Check your bank account balance
-• Contact your bank if transactions are declined
-• Ensure you're using a supported payment method
+2. PASSWORD RESET
+• Check your email spam folder
+• Ensure you're using the correct email address
+• Wait a few minutes for the email to arrive
+• Contact support if you don't receive the reset code
 
 3. ACCOUNT ACCESS
 • Reset your password if forgotten
@@ -222,8 +216,4 @@ For urgent issues, please call our support line during business hours.
 
 Thank you for choosing MasrPay!`;
   }
-
-  goToForgotPassword() {
-    this.router.navigate(['/forgot-password']);
-  }
-}
+} 

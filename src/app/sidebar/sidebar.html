@@ -9,14 +9,13 @@
     <i class="bi" [class.bi-chevron-left]="!isCollapsed" [class.bi-chevron-right]="isCollapsed"></i>
   </div>
       
-  <nav class="sidebar vh-100" [class.collapsed]="isCollapsed" style="width: 240px; position: fixed; top: 0; left: 0;">
-  
+  <nav class="sidebar vh-100" [class.collapsed]="isCollapsed">
+
   <!-- Logo -->
   <div class="p-0">
-    <a href="#" style="text-decoration: none; color: black;"><img src="logo-masrpay.png" alt="MasrPay Logo" width="70" height="70"  /><span style="font-size: 14px;" [class.d-none]="isCollapsed"> Admin Dashboard </span>
-      <hr class="mb-2 p-0">
-   
-   </a> 
+    <a href="#" style="text-decoration: none; color: black;"><img src="logo-masrpay.png" alt="MasrPay Logo" width="70" height="70" class="img-fluid"  /><span style="font-size: 14px;" [class.d-none]="isCollapsed"> Admin Dashboard </span>
+      <hr class="m-0 p-0">
+    </a> 
   </div>
 
   <!-- navigation -->
@@ -26,10 +25,10 @@
      
      <!-- Merchants Category -->
      <li class="nav-item" [class.active]="isParentActive()">
-          <a class="nav-link dropdown-toggle" (click)="toggleMerchants($event)" style="cursor: pointer;">
+          <a class="nav-link" (click)="toggleMerchants($event)" style="cursor: pointer;">
             <i class="bi bi-buildings pe-2"></i>
-            <span [class.d-none]="isCollapsed">Merchants</span>
-            <i class="bi ms-auto" [class.bi-chevron-down]="isDropdownOpen('merchants')" [class.bi-chevron-right]="!isDropdownOpen('merchants')"></i>
+            <span class="position-relative" [class.d-none]="isCollapsed">Merchants <i class="bi ms-auto ps-3 icon" [class.bi-chevron-down]="isDropdownOpen('merchants')" [class.bi-chevron-right]="!isDropdownOpen('merchants')"></i></span>
+          
           </a>
      </li>
      
@@ -48,7 +47,6 @@
             </li>
           </ul>
      </li>
-
      <li class="nav-item mb-2" [class.active]="isActive('/payments')"><a class="nav-link" routerLink="/payments"><i class="bi bi-cash-stack pe-2"></i><span [class.d-none]="isCollapsed">Payments</span></a></li>
      <li class="nav-item mb-2" [class.active]="isActive('/withdrawal')"><a class="nav-link" routerLink="/withdrawal"><i class="bi bi-arrow-repeat pe-2"></i><span [class.d-none]="isCollapsed">Withdrawal</span></a></li>
      <li class="nav-item mb-2" [class.active]="isActive('/users')"><a class="nav-link" routerLink="/users"><i class="bi bi-people-fill pe-2"></i><span [class.d-none]="isCollapsed">Users</span></a></li>
@@ -59,9 +57,8 @@
      <li class="nav-item mb-2" [class.active]="isActive('/site')"><a class="nav-link" routerLink="/site"><i class="bi bi-diagram-2 pe-2"></i><span [class.d-none]="isCollapsed">Site</span></a></li>
      <li class="nav-item mb-2" [class.active]="isActive('/frontend')"><a class="nav-link" routerLink="/frontend"><i class="bi bi-code-slash pe-2"></i><span [class.d-none]="isCollapsed">Front end</span></a></li>
      <li class="nav-item pb-2" [class.active]="isActive('/communication')"><a class="nav-link" routerLink="/communication"><i class="bi bi-share pe-2"></i><span [class.d-none]="isCollapsed">Communication</span></a></li>
-
-  </ul>
-</nav>
+    </ul>
+    </nav>
     </div>
   </div>
 </div>
